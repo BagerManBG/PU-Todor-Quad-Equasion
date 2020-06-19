@@ -2,7 +2,7 @@
     <string name="app_name">Quadratic Equasion Calculator</string>
     <string name="go_to_history">Go to history</string>
     <string name="solve">Solve</string>
-    <string name="add_values_for_a_b_and_c_from_the_equasion_nax_2_bx_c_0">Add values for A, B and C from the equasion\nAx^2 + Bx + C = 0</string>
+    <string name="add_values_for_a_b_and_c_from_the_equasion_nax_2_bx_c_0">Add values for "A", "B" and "C" from the equasion\nAx^2 + Bx + C = 0</string>
     <string name="a">A</string>
     <string name="b">B</string>
     <string name="c">C</string>

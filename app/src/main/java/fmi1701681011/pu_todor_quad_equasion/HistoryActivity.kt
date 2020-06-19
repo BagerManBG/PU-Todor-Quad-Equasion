@@ -1,8 +1,9 @@
-package com.smartherd.pu_todor_quad_equasion
+package fmi1701681011.pu_todor_quad_equasion
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -11,6 +12,28 @@ import kotlinx.android.synthetic.main.activity_history.*
 import kotlin.math.abs
 
 class HistoryActivity: AppCompatActivity() {
+    private var x1: Float = 0f
+    private var x2: Float = 0f
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> x1 = event.x
+            MotionEvent.ACTION_UP -> {
+                x2 = event.x
+                val deltaX = x2 - x1
+
+                val scale = resources.displayMetrics.density
+                val distance = (100 * scale + 0.5f).toInt()
+
+                if (abs(deltaX) > distance && deltaX > 0) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        return super.onTouchEvent(event)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)

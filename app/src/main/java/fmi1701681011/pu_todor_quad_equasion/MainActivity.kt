@@ -1,22 +1,50 @@
-package com.smartherd.pu_todor_quad_equasion
+package fmi1701681011.pu_todor_quad_equasion
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.MotionEvent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import kotlin.math.abs
 import kotlin.math.sqrt
 
+
 class MainActivity : AppCompatActivity() {
+
+    private var x1: Float = 0f
+    private var x2: Float = 0f
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> x1 = event.x
+            MotionEvent.ACTION_UP -> {
+                x2 = event.x
+                val deltaX = x2 - x1
+
+                val scale = resources.displayMetrics.density
+                val distance = (100 * scale + 0.5f).toInt()
+
+                if (abs(deltaX) > distance && deltaX < 0) {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+        return super.onTouchEvent(event)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val db = CalculationsDB(this)
+
+
 
         // Go to history activity.
         btnGoToHistory.setOnClickListener {
@@ -28,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         btnSolve.setOnClickListener {
             // Throw a Toast error if one or more of the number fields are empty.
             if (etEqA.text.toString() == "" || etEqB.text.toString() == "" || etEqC.text.toString() == "") {
-                Toast.makeText(this, "A, B and C should not be empty.", Toast.LENGTH_SHORT).apply {
+                Toast.makeText(this, "\"A\", \"B\" and \"C\" should not be empty.", Toast.LENGTH_SHORT).apply {
                     val scale = resources.displayMetrics.density
                     val dpAsPixels = (80 * scale + 0.5f).toInt()
 
@@ -38,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             else if (etEqA.text.toString() == "0") {
-                Toast.makeText(this, "A must not be equal to zero.", Toast.LENGTH_SHORT).apply {
+                Toast.makeText(this, "\"A\" must not be equal to zero.", Toast.LENGTH_SHORT).apply {
                     val scale = resources.displayMetrics.density
                     val dpAsPixels = (80 * scale + 0.5f).toInt()
 

@@ -1,4 +1,4 @@
-package com.smartherd.pu_todor_quad_equasion
+package fmi1701681011.pu_todor_quad_equasion
 
 import android.content.ContentValues
 import android.content.Context
